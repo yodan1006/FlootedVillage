@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 3.52, y: 3.81, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -384,12 +384,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8e7e4e09940e48908df172c7222d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteForWater: {fileID: 21300000, guid: 1c5f373149a9b48a8af7a5fac9b62897, type: 3}
-  _spriteForGround: {fileID: 21300000, guid: 8724e29841e654af38b5f0b15605c060, type: 3}
-  _spriteForSable: {fileID: 21300000, guid: a98fe46bf56754726bb9bb7c6f3423ad, type: 3}
-  _mapDisign: 
-  numberToTable: 10
-  table: {fileID: 5018935912131211358, guid: e7980d21abe01dd45a620675dd17c494, type: 3}
+  gridSize: 5
+  cellPrefab: {fileID: 5018935912131211358, guid: e7980d21abe01dd45a620675dd17c494, type: 3}
+  bridgeSprite: {fileID: 21300000, guid: 9d7a8ea63ae5940beaff842ba20f7cc6, type: 3}
+  emptySprite: {fileID: 21300000, guid: 8724e29841e654af38b5f0b15605c060, type: 3}
+  cropsSprite: {fileID: 21300000, guid: 833c0bbddec26460889818ad1f225322, type: 3}
+  sandSprite: {fileID: 21300000, guid: a98fe46bf56754726bb9bb7c6f3423ad, type: 3}
+  villagerSprite: {fileID: 21300000, guid: 1fee6d46a651e4f13b4f04b5ab9a2abb, type: 3}
+  waterSprite: {fileID: 21300000, guid: 1c5f373149a9b48a8af7a5fac9b62897, type: 3}
+  gridCells:
+  - type: 1
+    x: 0
+    y: 0
+  - type: 2
+    x: 1
+    y: 0
+  - type: 3
+    x: 2
+    y: 0
+  - type: 3
+    x: 3
+    y: 0
+  - type: 0
+    x: 4
+    y: 0
+  - type: 2
+    x: 0
+    y: 1
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
+  - type: 0
+    x: 0
+    y: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
