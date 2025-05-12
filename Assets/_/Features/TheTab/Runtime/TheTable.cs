@@ -1,81 +1,168 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TheTab.Runtime
 {
     public class TheTable : MonoBehaviour
     {
         #region Publics
-
         
+        public enum TerrainType
+        {
+            Bridge,
+            Empty,
+            Crops,
+            Sand,
+            Villager,
+            Water
+        }
 
+        [Serializable]
+        public class GridCell
+        {
+            public TerrainType type;
+            public int x;
+            public int y;
+            
+            public GridCell(int x, int y, TerrainType type = TerrainType.Empty)
+            {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+            }
+        }
         #endregion
-
+        
+        
 
         #region Unity Api
 
         private void Start()
         {
-            for (int i = 0; i < _tailleTab; i++)
-            {
-                
-            }
-        }
-
-        private void Update()
-        {
-            
+           
         }
 
         #endregion
-
-
-        #region Utils
-
         
 
+        #region Utils
+        
         #endregion
-
+        
+        
 
         #region Main Methode
-
-        protected void CreateTable(GameObject objet,int tailleTab)
+        
+        private void InitialiserTerrain()
         {
-            for (int i = 0; i < tailleTab; i++)
+            gridCells.Clear();
+            for (int i = 0; i < gridSize; i++)
             {
-                for (int j = 0; j < tailleTab; j++)
+                for (int j = 0; j < gridSize; j++)
                 {
-                    Vector2 pos = new Vector2(j, i);
-                    Instantiate(objet);
-                    objet.transform.position = pos;
-                    MapDisign(i,j, objet);
+                    gridCells.Add(new GridCell(j, i,TerrainType.Empty));
                 }
             }
         }
-        private void MapDisign(int i,int j, GameObject currentcell)
+        
+        protected void ConvertListToGrid()
         {
-            sbyte inter = m_ground[i,j];
-            //sbyte inter = (sbyte)Random.Range(0,3);
-            SpriteRenderer spriteRenderer = currentcell.GetComponent<SpriteRenderer>();
-            switch (inter)
+            terrainGrid = new TerrainType[gridSize, gridSize];
+
+            for (int i = 0; i < gridSize; i++)
             {
-                case 0: spriteRenderer.sprite = _spriteForSable; break;
-                case 1: spriteRenderer.sprite = _spriteForGround; break;
-                case 2: spriteRenderer.sprite = _spriteForWater; break;
+                for (int j = 0; j < gridSize; j++)
+                {
+                    terrainGrid[i, j] = TerrainType.Empty;
+                }
+            }
+
+            foreach (GridCell cell in gridCells)
+            {
+                if (cell.x >= 0 && cell.x < gridSize && cell.y >= 0 && cell.y < gridSize)
+                {
+                    terrainGrid[cell.x, cell.y] = cell.type;
+                }
+            }
+        }
+
+        protected void CreateTerrain()
+        {
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);;
+            }
+
+            for (int i = 0; i < gridSize; i++)
+            {
+                for (int j = 0; j < gridSize; j++)
+                {
+                    CreateCell(i, j);
+                }
+            }
+        }
+
+        private void CreateCell(int i, int i1)
+        {
+            GameObject cell = Instantiate(cellPrefab, transform);
+            cell.name = $"Cell {i} {i1}";
+            cell.transform.position = new Vector3(i1*1.5f, i*1.5f, 0);
+            
+            SpriteRenderer spriteRenderer = cell.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                UpdateCellSprite(spriteRenderer, terrainGrid[i, i1]);
+            }
+        }
+
+        private void UpdateCellSprite(SpriteRenderer spriteRenderer, TerrainType valueTuple)
+        {
+            switch (valueTuple)
+            {
+                case TerrainType.Bridge:
+                    spriteRenderer.sprite = bridgeSprite;
+                    break;
+                case TerrainType.Empty:
+                    spriteRenderer.sprite = emptySprite;
+                    break;
+                case TerrainType.Crops:
+                    spriteRenderer.sprite = cropsSprite;
+                    break;
+                case TerrainType.Sand:
+                    spriteRenderer.sprite = sandSprite;
+                    break;
+                case TerrainType.Villager:
+                    spriteRenderer.sprite = villagerSprite;
+                    break;
+                case TerrainType.Water:
+                    spriteRenderer.sprite = waterSprite;
+                    break;
             }
         }
 
         #endregion
+        
         
         
         #region Privates
         
+        [SerializeField] private int gridSize = 10;
+        [SerializeField] private GameObject cellPrefab;
         
-        private int _tailleTab;
-        public sbyte[,] m_ground;
-        [SerializeField] private Sprite _spriteForWater;
-        [SerializeField] private Sprite _spriteForGround;
-        [SerializeField] private Sprite _spriteForSable;
-        [SerializeField] private sbyte[] _mapDisign;
+        [Header("terrain type sprite")]
+        [SerializeField] private Sprite bridgeSprite;
+        [SerializeField] private Sprite emptySprite;
+        [SerializeField] private Sprite cropsSprite;
+        [SerializeField] private Sprite sandSprite;
+        [SerializeField] private Sprite villagerSprite;
+        [SerializeField] private Sprite waterSprite;
+        
+        [Header("liste pour les definir la case")]
+        [SerializeField] private List<GridCell> gridCells = new List<GridCell>();
+        private TerrainType[,] terrainGrid;
+        
         public enum Etat
         {
             bridge = 0,
