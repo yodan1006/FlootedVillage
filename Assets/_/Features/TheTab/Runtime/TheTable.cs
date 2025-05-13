@@ -82,7 +82,7 @@ namespace TheTab.Runtime
             }
         }
 
-        protected void CreateTerrain()
+        protected virtual void CreateTerrain()
         {
             foreach (Transform child in transform)
                 DestroyImmediate(child.gameObject);
@@ -92,7 +92,7 @@ namespace TheTab.Runtime
                     CreateCell(y, x);
         }
 
-        private void CreateCell(int y, int x)
+        protected virtual void CreateCell(int y, int x)
         {
             GameObject cell = Instantiate(cellPrefab, transform);
             cell.name = $"Cell {y} {x}";
@@ -103,7 +103,7 @@ namespace TheTab.Runtime
                 UpdateCellSprite(spriteRenderer, terrainGrid[y, x]);
         }
 
-        private void UpdateCellSprite(SpriteRenderer spriteRenderer, TerrainType type)
+        protected void UpdateCellSprite(SpriteRenderer spriteRenderer, TerrainType type)
         {
             switch (type)
             {
@@ -136,7 +136,7 @@ namespace TheTab.Runtime
         #region Privates
 
         [SerializeField] private int gridSize = 10;
-        [SerializeField] private GameObject cellPrefab;
+        [SerializeField] protected GameObject cellPrefab;
 
         [Header("terrain type sprite")]
         [SerializeField] private Sprite bridgeSprite;
@@ -147,9 +147,9 @@ namespace TheTab.Runtime
         [SerializeField] private Sprite waterSprite;
 
         [Header("liste pour les definir la case")]
-        [SerializeField] private List<GridCell> gridCells = new List<GridCell>();
-        private TerrainType[,] terrainGrid;
         [SerializeField] private TerrainType[] serializedStates;
+        private List<GridCell> gridCells = new List<GridCell>();
+        protected TerrainType[,] terrainGrid;
 
         #endregion
     }
