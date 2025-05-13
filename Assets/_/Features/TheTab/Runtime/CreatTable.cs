@@ -15,6 +15,7 @@ namespace TheTab.Runtime
 
         private void Start()
         {
+            InitialiserTerrain();
             ConvertListToGrid();
             CreateTerrain();
         }

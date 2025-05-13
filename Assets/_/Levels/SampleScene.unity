@@ -397,13 +397,13 @@ MonoBehaviour:
     x: 0
     y: 0
   - type: 2
-    x: 1
+    x: 0
     y: 0
   - type: 3
-    x: 2
+    x: 0
     y: 0
   - type: 3
-    x: 3
+    x: 0
     y: 0
   - type: 0
     x: 4
