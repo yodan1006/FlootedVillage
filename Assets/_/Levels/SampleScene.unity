@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.52, y: 3.81, z: -10}
+  m_LocalPosition: {x: 6.93, y: 3.81, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -384,15 +384,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8e7e4e09940e48908df172c7222d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 5
+  gridWidth: 2
+  gridHeight: 3
   cellPrefab: {fileID: 5018935912131211358, guid: e7980d21abe01dd45a620675dd17c494, type: 3}
   bridgeSprite: {fileID: 21300000, guid: 9d7a8ea63ae5940beaff842ba20f7cc6, type: 3}
   emptySprite: {fileID: 21300000, guid: 8724e29841e654af38b5f0b15605c060, type: 3}
+  seedSprite: {fileID: 21300000, guid: c25ab3c5c87be4bdd868baad47c52198, type: 3}
   cropsSprite: {fileID: 21300000, guid: 833c0bbddec26460889818ad1f225322, type: 3}
   sandSprite: {fileID: 21300000, guid: a98fe46bf56754726bb9bb7c6f3423ad, type: 3}
   villagerSprite: {fileID: 21300000, guid: 1fee6d46a651e4f13b4f04b5ab9a2abb, type: 3}
+  villagerDrownSprite: {fileID: 21300000, guid: a493bdc4f55404fae828d66a1b74e350, type: 3}
   waterSprite: {fileID: 21300000, guid: 1c5f373149a9b48a8af7a5fac9b62897, type: 3}
-  serializedStates: 01000000010000000100000000000000010000000400000003000000030000000300000004000000000000000200000000000000000000000500000000000000010000000000000000000000000000000100000003000000000000000000000000000000
+  serializedStates: 000000000000000000000000000000000000000000000000
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

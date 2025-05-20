@@ -10,12 +10,14 @@ namespace TheTab.Runtime
 
         public enum TerrainType
         {
-            Bridge,
             Empty,
+            Bridge,
             Crops,
             Sand,
             Villager,
-            Water
+            VillagerDrown,
+            Water,
+            Seed
         }
 
         [Serializable]
@@ -43,7 +45,7 @@ namespace TheTab.Runtime
 
         private void OnValidate()
         {
-            int desiredLength = gridSize * gridSize;
+            int desiredLength = gridWidth * gridHeight;
             if (serializedStates == null || serializedStates.Length != desiredLength)
                 serializedStates = new TerrainType[desiredLength];
         }
@@ -55,11 +57,11 @@ namespace TheTab.Runtime
         protected void InitialiserTerrain()
         {
             gridCells.Clear();
-            for (int y = 0; y < gridSize; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
-                for (int x = 0; x < gridSize; x++)
+                for (int x = 0; x < gridWidth; x++)
                 {
-                    int idx = y * gridSize + x;
+                    int idx = y * gridWidth + x;
                     var t = (serializedStates != null && idx < serializedStates.Length)
                         ? serializedStates[idx]
                         : TerrainType.Empty;
@@ -70,14 +72,14 @@ namespace TheTab.Runtime
 
         protected void ConvertListToGrid()
         {
-            terrainGrid = new TerrainType[gridSize, gridSize];
-            for (int y = 0; y < gridSize; y++)
-                for (int x = 0; x < gridSize; x++)
+            terrainGrid = new TerrainType[gridHeight, gridWidth];
+            for (int y = 0; y < gridHeight; y++)
+                for (int x = 0; x < gridWidth; x++)
                     terrainGrid[y, x] = TerrainType.Empty;
 
             foreach (var cell in gridCells)
             {
-                if (cell.x >= 0 && cell.x < gridSize && cell.y >= 0 && cell.y < gridSize)
+                if (cell.x >= 0 && cell.x < gridWidth && cell.y >= 0 && cell.y < gridHeight)
                     terrainGrid[cell.y, cell.x] = cell.type;
             }
         }
@@ -87,8 +89,8 @@ namespace TheTab.Runtime
             foreach (Transform child in transform)
                 DestroyImmediate(child.gameObject);
 
-            for (int y = 0; y < gridSize; y++)
-                for (int x = 0; x < gridSize; x++)
+            for (int y = 0; y < gridHeight; y++)
+                for (int x = 0; x < gridWidth; x++)
                     CreateCell(y, x);
         }
 
@@ -113,6 +115,9 @@ namespace TheTab.Runtime
                 case TerrainType.Empty:
                     spriteRenderer.sprite = emptySprite;
                     break;
+                case TerrainType.Seed:
+                    spriteRenderer.sprite = seedSprite;
+                    break;
                 case TerrainType.Crops:
                     spriteRenderer.sprite = cropsSprite;
                     break;
@@ -125,6 +130,10 @@ namespace TheTab.Runtime
                 case TerrainType.Water:
                     spriteRenderer.sprite = waterSprite;
                     break;
+                case TerrainType.VillagerDrown:
+                    spriteRenderer.sprite = villagerDrownSprite;
+
+                    break;
                 default:
                     spriteRenderer.sprite = null;
                     break;
@@ -135,15 +144,19 @@ namespace TheTab.Runtime
 
         #region Privates
 
-        [SerializeField] private int gridSize = 10;
+        //[SerializeField] private int gridSize = 10;
+        [SerializeField] private int gridWidth = 10;   // pour x
+        [SerializeField] private int gridHeight = 10;  // pour y
         [SerializeField] protected GameObject cellPrefab;
 
         [Header("terrain type sprite")]
         [SerializeField] private Sprite bridgeSprite;
         [SerializeField] private Sprite emptySprite;
+        [SerializeField] private Sprite seedSprite;
         [SerializeField] private Sprite cropsSprite;
         [SerializeField] private Sprite sandSprite;
         [SerializeField] private Sprite villagerSprite;
+        [SerializeField] private Sprite villagerDrownSprite;
         [SerializeField] private Sprite waterSprite;
 
         [Header("liste pour les definir la case")]
